@@ -42,7 +42,7 @@ class ModelLoader:
         try:
             logger.info("Loading LLM Model")
             llm_block = self.config["llm"]
-            provider_key = os.getenv("LLM_PROVIDER","groq")
+            provider_key = os.getenv("LLM_PROVIDER","google")
             if provider_key not in llm_block:
                 logger.error("LLM provider not found in config",provider=provider_key)
                 raise DocumentPortalException(f"LLM provider '{provider_key}' not found in config",sys)
