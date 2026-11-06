@@ -6,7 +6,7 @@ from model.models import *
 from langchain_core.output_parsers import JsonOutputParser
 from langchain_classic.output_parsers import OutputFixingParser
 from logger.custom_logger import CustomLogger
-from prompts.prompt_library import *
+from prompts.prompt_library import PROMPT_REGISTRY
 
 logger = CustomLogger().get_logger(__name__)
 
@@ -17,7 +17,7 @@ class DocumentAnalyzer:
             self.llm = ModelLoader().load_llm()
             self.parser = JsonOutputParser(pydantic_object=Metadata)
             self.fixing_parser = OutputFixingParser.from_llm(parser=self.parser,llm=self.llm)
-            self.prompt = prompt
+            self.prompt = PROMPT_REGISTRY.get("document_analysis")
 
         except Exception as e:
             logger.error(f"Error Initialization Document Analyzer: {e}")
